@@ -17,7 +17,7 @@ const currency = import.meta.env.VITE_CURRENCY
             text-white text-xs px-2.5 py-2 rounded-full'>Available Now</p>}
 
             <div className='absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white px-3 py-2 rounded-lg'>
-              <span className='font-semibold'>{currency}{Car.pricePerDay}</span>
+              <span className='font-semibold'>{currency}{car.pricePerDay}</span>
               <span className='text-sm text-white/80'> / day</span>
             </div>
         </div>
