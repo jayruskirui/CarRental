@@ -11,7 +11,8 @@ const navigate = useNavigate();
 
   return (
     <div className= {`flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 py-4 text-gray-600 border-b border-borderColor 
-                    fixed top-0 left-0 w-full z-50 transition-all ${Location.pathname === "/" && "bg-light"}`}>
+                     relative transition-all ${Location.pathname === "/" && "bg-light"}`}>
+                        {/* fixed top-0 left-0 w-full z-50 */}
         <Link to = "/">
             <img src = {assets.logo} alt = "logo"  className="h-8"/>
         </Link>
