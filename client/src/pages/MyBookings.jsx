@@ -5,6 +5,7 @@ import Title from '../components/Title'
 const MyBookings = () => {
 
 const [bookings, setBookings] = useState([])
+const currency = import.meta.env.VITE_CURRENCY
 
 const fetchMyBookings = async () => {
   setBookings(dummyMyBookingsData)
@@ -37,7 +38,7 @@ useEffect(()=>{
               </div>
 
               {/* booking info */}
-              <div className='md:cols-span-2'>
+              <div className='md:col-span-2'>
                 <div flex items-center gap-2>
                   <p className='px-3 py-1.5 bg-white rounded'>Booking #{index+1}</p>
                   <p className={`px-3 py-1 text-xs rounded-full
@@ -63,7 +64,13 @@ useEffect(()=>{
               </div>
 
               {/* price */}
-              
+              <div className='md:col-span-1 flex flex-col justify-between gap-6 '>
+                <div className='text-sm text-gray-500 text-right'>
+                  <p>Total Price</p>
+                  <h1 className='text-2xl font-semibold text-primary'>{currency}{booking.price}</h1>
+                  <p>Booked on {booking.createdAt.split('T')[0]}</p>
+                </div>
+              </div>
 
             </div>
           ))}
