@@ -27,7 +27,7 @@ const isOwnerPath = useLocation().pathname.startsWith('/owner');
       <Route path = "/car-details/:id" element = {<CarDetails/>} />
       <Route path = "/cars" element = {<Cars />} />
       <Route path = "/my-bookings" element = {<MyBookings />} />
-      <Route path = "/owners" element = {<Layout />}>
+      <Route path = "/owner" element = {<Layout />}>
           <Route index element ={<Dashboard/>}/>
           <Route path='add-car' element ={<AddCar/>}/>
           <Route path='manage-cars' element ={<ManageCars/>}/>
