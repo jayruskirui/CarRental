@@ -21,7 +21,7 @@ const navigate = useNavigate();
                         sm:flex-row items-start sm:items-center gap-4 sm:gap-8 max-sm:gap-4 transition-all duration-300 z-50 px-4 ${Location.pathname
                         === "/" ? "bg-light" : "bg-white"} ${open ? "max-sm:translate-x-0" : "max-sm:translate-x-full"}`}>
             {menuLinks.map((link, index) => (
-                <Link key={index} to={link.path}>
+                <Link key={index} to={link.path} onClick={() => setOpen(false)}>
                     {link.name}
                 </Link>
             ))}
