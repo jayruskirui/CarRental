@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import {objectId} from "mongoose";
+import { ObjectId } from "mongoose";
 
 
 const carSchema = new mongoose.Schema({
-    owner: {type: objectId, ref: user},
+    owner: {type: ObjectId, ref: "user"},
     brand: {type: String, required: true},
     model: {type: String, required: true},
     image: {type: String, required: true},
