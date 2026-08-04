@@ -1,7 +1,7 @@
 import express from "express";
 import {protect} from "../middleware/auth.js";
 import upload from "../middleware/multer.js";
-import { addCar, getOwnerCars, toggleCarAvailability, deleteCar } from "../controllers/ownerController.js";
+import { addCar, getOwnerCars, toggleCarAvailability, deleteCar, getDashboardData } from "../controllers/ownerController.js";
 import { changeRoleToOwner } from "../controllers/ownerController.js";
 
 const ownerRouter = express.Router();
@@ -11,6 +11,8 @@ ownerRouter.post('/add-car', upload.single('image'), protect, addCar)
 ownerRouter.get('/cars', protect, getOwnerCars)
 ownerRouter.post('/toggle-car', protect, toggleCarAvailability)
 ownerRouter.post('/delete-car', protect, deleteCar)
+
+ownerRouter.get('/dashboard', protect, getDashboardData)
 
 
 
