@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
-export const AppProvider = ({ children }) => {
+ const AppProvider = ({ children }) => {
 
     const navigate = useNavigate()
     const currency = import.meta.env.VITE_CURRENCY
@@ -48,6 +48,6 @@ export const AppProvider = ({ children }) => {
 }
 
 
-const useAppContext = ()=> {
+export const useAppContext = ()=> {
     return useContext(AppContext)
 }
