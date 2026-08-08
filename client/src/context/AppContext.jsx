@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL
 
-export const AppContext = createContext();
+const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
 
@@ -21,6 +21,21 @@ export const AppProvider = ({ children }) => {
 
     const [cars, setCars] = useState([])
 
+    //Function to check if user is logged in
+    const fetchUser = async ()=> {
+        try {
+            const {data} = await axios.get('/api/user/data')
+            if (data.success) {
+                setUser(data.user)
+                setIsOwner(data.user.role === 'owner')
+            }else{
+                navigate('/')
+            }
+        } catch (error) {
+          toast.error(error.message)  
+        }
+    }
+
     const value = {
         navigate,currency
     }
@@ -33,6 +48,6 @@ export const AppProvider = ({ children }) => {
 }
 
 
-export const useAppContext = ()=> {
+const useAppContext = ()=> {
     return useContext(AppContext)
 }
