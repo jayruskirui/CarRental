@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import Title from '../../components/owner/Title'
 import { assets } from '../../assets/assets'
+import { useAppContext } from '../../context/AppContext'
 
 const AddCar = () => {
 
-  const currency = import.meta.env.VITE_CURRENCY
+  const {axios, currency} = useAppContext()
 
   const [image, setImage] = useState(null)
 
@@ -21,8 +23,42 @@ const AddCar = () => {
     description:'',
   })
 
-const onSubmitHandler = async (e) => {
-  e.preventdefault()
+  const [isLoading, setIsLoading] = useState(false)
+  const onSubmitHandler = async (e) => {
+  e.preventDefault()
+  if (isLoading) return null
+
+  setIsLoading(true)
+  try {
+    const formData = new FormData()
+    formData.append('image', image)
+    formData.append('carData', JSON.stringify(car))
+
+    const { data } = await axios.post('/api/owner/add-car', formData)
+
+    if(data.success){
+      toast.success(data.message)
+      setImage(null)
+      setCar({
+        brand:'',
+        model:'',
+        year:0,
+        pricePerDay:0,
+        category:'',
+        transmission:'',
+        fuel_type:'',
+        seating_capacity:0,
+        location:'',
+        description:'',
+      })
+    }else{
+      toast.error(data.message)
+    }
+  } catch (error) {
+    toast.error(error.message)
+  }finally{
+    setIsLoading(false)
+  }
 }
 
   return (
@@ -31,7 +67,7 @@ const onSubmitHandler = async (e) => {
       <Title title="Add New Car" subTitle="Fill in the details to list a new car for
       booking, including pricing, availability and car specification."/>
 
-      <form onChange={onSubmitHandler} className='flex flex-col gap-5 text-gray-500 text-sm mt-6 max-w-xl'>
+      <form onSubmit={onSubmitHandler} className='flex flex-col gap-5 text-gray-500 text-sm mt-6 max-w-xl'>
 
         {/* car image */}
         <div className='flex items-center gap-2 w-full'>
@@ -145,10 +181,10 @@ const onSubmitHandler = async (e) => {
               value={car.description} onChange={(e)=>setCar({...car, description:e.target.value})}></textarea>
             </div>
 
-            <button className='flex items-center gap-2 px-4 py-2.5 mt-4 bg-primary text-white rounded-md font-semibold w-max
+            <button type='submit' className='flex items-center gap-2 px-4 py-2.5 mt-4 bg-primary text-white rounded-md font-semibold w-max
             cursor-pointer'>
               <img src={assets.tick_icon} alt='' />
-              List Your Car
+              {isLoading ? 'Listing...' : 'List Your Car'}
             </button>
       </form>  
     </div>
