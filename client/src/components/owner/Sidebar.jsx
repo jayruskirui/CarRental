@@ -12,14 +12,14 @@ const Sidebar = () => {
 
     const updateImage = async () => {
         try {
-            const formData = new formData()
+            const formData = new FormData()
             formData.append('image', image)
 
-            const { data } = await axios.post('/api/owner/update-image', formData)
+            const { data } = await axios.post('/api/owner/update-user', formData)
 
             if(data.success){
                 fetchUser()
-                toast.message(data.success)
+                toast.success(data.message)
                 setImage('')
             }else{
                 toast.error(data.message)
@@ -47,7 +47,7 @@ const Sidebar = () => {
             </label>
         </div>
         {image && ( 
-            <button onChange={updateImage}
+            <button onClick={updateImage}
             className='absolute top-0 right-0 p-2 flex gap-1 bg-primary/10 text-primary cursor-pointer'>
             Save <img src={assets.check_icon} width={13} 
             alt='' /></button>)}
