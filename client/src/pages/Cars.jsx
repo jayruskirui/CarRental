@@ -37,7 +37,7 @@ const applyFilter = async ()=> {
 }
 
 const searchCarAvailability = async ()=> {
-  const {data} = await axios.get('/api/bookings/check-availability',
+  const {data} = await axios.get('/api/booking/check-availability',
     {location: pickupLocation, pickupDate, returnDate})
     if(data.success){
       setFilteredCars(data.availableCars)
