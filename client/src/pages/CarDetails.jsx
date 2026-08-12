@@ -16,23 +16,34 @@ const navigate = useNavigate()
 const [car, setCar] = useState(null)
 const currency = import.meta.env.VITE_CURRENCY
 
-const handleSubmit = async () => {
+const handleSubmit = async (e) => {
   e.preventDefault();
+
+  if (!pickupDate || !returnDate) {
+    toast.error('Please select pickup and return dates');
+    return;
+  }
+
+  if (new Date(returnDate) <= new Date(pickupDate)) {
+    toast.error('Return date must be after pickup date');
+    return;
+  }
+
   try {
     const {data} = await axios.post('/api/booking/create', {
-      car : id,
+      car: id,
       pickupDate,
       returnDate,
     })
 
-    if(data.success){
+    if (data.success) {
       toast.success(data.message)
       navigate('/my-bookings')
-    }else{
+    } else {
       toast.error(data.message)
     }
   } catch (error) {
-    toast.error(error.message)
+    toast.error(error.response?.data?.message || error.message)
   }
 }
 
